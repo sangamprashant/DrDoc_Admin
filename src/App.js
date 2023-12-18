@@ -1,13 +1,16 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./assets/App.css";
 import { Home, SideNav, TopNav } from "./components";
 
 function App() {
   return (
-    <div>
-      <SideNav />
-      <TopNav />
-      <Home />
-    </div>
+    <BrowserRouter>
+      <SideNav>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </SideNav>
+    </BrowserRouter>
   );
 }
 

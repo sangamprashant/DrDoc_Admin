@@ -8,7 +8,7 @@ a{
     color: black;
 }
 
-li {
+.side-menu-option li {
   margin: 5px 0;
   border-radius: 0 50px 50px 0;
 }
@@ -17,7 +17,7 @@ li {
     margin: 0;
     color: rgb(162, 162, 162);
 }
-li.active,
-li:hover {
+.side-menu-option li.active,
+.side-menu-option li:hover {
   background-color: #3a354114;
 }
