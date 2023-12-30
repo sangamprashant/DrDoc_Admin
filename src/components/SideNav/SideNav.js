@@ -2,8 +2,11 @@ import React from "react";
 import { Protection } from "../../assets/images";
 import "./Sidenav.css";
 import { menuItems } from "./Content";
+import { Link, useLocation } from "react-router-dom";
 
 function SideNav({ children }) {
+  const location = useLocation();
+
   return (
     <div className="d-flex">
       <aside
@@ -22,18 +25,24 @@ function SideNav({ children }) {
           </figure>
           <ul className="side-menu-option mt-1">
             {menuItems.map((item) => (
-              <>
+              <React.Fragment key={item.id}>
                 <p>{item.title}</p>
                 {item.items.map((link) => (
-                  <a
+                  <Link
                     key={link.id}
-                    className={`p-2 ${link.id === 1 ? "active" : ""}`}
-                    href={link.link}
+                    className={`p-2 ${
+                      link.link === "/"
+                        ? location.pathname === link.link
+                        : location.pathname.includes(link.link)
+                        ? "active"
+                        : ""
+                    }`}
+                    to={link.link}
                   >
                     {link.icon} {link.text}
-                  </a>
+                  </Link>
                 ))}
-              </>
+              </React.Fragment>
             ))}
           </ul>
         </div>

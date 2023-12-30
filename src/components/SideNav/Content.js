@@ -1,5 +1,6 @@
 import {
   BadgeIcon,
+  BusinessCenterIcon,
   HomeIcon,
   MailIcon,
   MarkEmailReadIcon,
@@ -13,7 +14,7 @@ export const menuItems = [
   {
     title: "",
     items: [
-      { id: 1, text: "Dashboard", link: "#", icon: <HomeIcon /> },
+      { id: 1, text: "Dashboard", link: "/", icon: <HomeIcon /> },
       { id: 2, text: "State", link: "#", icon: <TimelineIcon /> },
       { id: 3, text: "Graph", link: "#", icon: <SignalCellularAltIcon /> },
     ],
@@ -21,17 +22,18 @@ export const menuItems = [
   {
     title: "Email",
     items: [
-      { id: 10, text: "All Response", link: "/mail/allmail", icon: <MailIcon /> },
-      { id: 3, text: "Pending", link: "#", icon: <MarkEmailUnreadIcon /> },
-      { id: 2, text: "Responded", link: "#", icon: <MarkEmailReadIcon /> },
+      { id: 10, text: "All Response", link: "/mail/all", icon: <MailIcon /> },
+      { id: 3, text: "Pending", link: "/mail/pending", icon: <MarkEmailUnreadIcon /> },
+      { id: 2, text: "Responded", link: "/mail/responded", icon: <MarkEmailReadIcon /> },
     ],
   },
   {
     title: "Employee",
     items: [
-      { id: 10, text: "All Employee", link: "#", icon: <BadgeIcon /> },
-      { id: 3, text: "Add Emplopyee", link: "#", icon: <PersonAddAlt1Icon /> },
-      { id: 2, text: "Remove Employee", link: "#", icon: <PersonRemoveIcon /> },
+      { id: 10, text: "All Employee", link: "/employee/all", icon: <BadgeIcon /> },
+      { id: 3, text: "Add Emplopyee", link: "/employee/add", icon: <PersonAddAlt1Icon /> },
+      { id: 2, text: "Remove Employee", link: "/employee/delete", icon: <PersonRemoveIcon /> },
+      { id: 12, text: "Employee Post", link: "/employee/post", icon: <BusinessCenterIcon /> },
     ],
   },
   {

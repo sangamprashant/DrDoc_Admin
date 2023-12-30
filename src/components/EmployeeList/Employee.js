@@ -1,76 +1,7 @@
 import React from "react";
 import { DevicesIcon, VisibilityIcon } from "../Icons/Icons";
 
-const EmployeeData = [
-  {
-    image:
-      "https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template-free/demo/assets/img/avatars/1.png",
-    name: "Prashant Srivastav",
-    id: "sdsdsffsfssfssfsf",
-    email: "srivastavp891@gmail.com",
-    role: "admin",
-    age: "24",
-    salary: "500000",
-    status: "Active",
-  },
-  {
-    image:
-      "https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template-free/demo/assets/img/avatars/1.png",
-    name: "Prashant Srivastav",
-    id: "sdsdsffsfssfssfsf",
-    email: "srivastavp891@gmail.com",
-    role: "admin",
-    age: "24",
-    salary: "500000",
-    status: "Active",
-  },
-  {
-    image:
-      "https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template-free/demo/assets/img/avatars/1.png",
-    name: "Prashant Srivastav",
-    id: "sdsdsffsfssfssfsf",
-    email: "srivastavp891@gmail.com",
-    role: "admin",
-    age: "24",
-    salary: "500000",
-    status: "Active",
-  },
-  {
-    image:
-      "https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template-free/demo/assets/img/avatars/1.png",
-    name: "Prashant Srivastav",
-    id: "sdsdsffsfssfssfsf",
-    email: "srivastavp891@gmail.com",
-    role: "admin",
-    age: "24",
-    salary: "500000",
-    status: "Active",
-  },
-  {
-    image:
-      "https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template-free/demo/assets/img/avatars/1.png",
-    name: "Prashant Srivastav",
-    id: "sdsdsffsfssfssfsf",
-    email: "srivastavp891@gmail.com",
-    role: "admin",
-    age: "24",
-    salary: "500000",
-    status: "Active",
-  },
-  {
-    image:
-      "https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template-free/demo/assets/img/avatars/1.png",
-    name: "Prashant Srivastav",
-    id: "sdsdsffsfssfssfsf",
-    email: "srivastavp891@gmail.com",
-    role: "admin",
-    age: "24",
-    salary: "500000",
-    status: "Active",
-  },
-];
-
-function Employee() {
+function Employee({ EmployeeData }) {
   return (
     <div class="col-12">
       <div class="card">
@@ -108,12 +39,16 @@ function Employee() {
                   </td>
                   <td class="text-truncate">{data.email}</td>
                   <td class="text-truncate">
-                    {<DevicesIcon style={{color:"purple"}}/>}{" "}
-                    {data.role}
+                    {<DevicesIcon style={{ color: "purple" }} />} {data.role}
                   </td>
                   <td class="text-truncate">{data.age}</td>
                   <td class="text-truncate">{data.salary}</td>
-                  <td class="text-truncate"> <a className="btn btn-primary"><VisibilityIcon/></a></td>
+                  <td class="text-truncate">
+                    {" "}
+                    <a className="btn btn-primary">
+                      <VisibilityIcon />
+                    </a>
+                  </td>
                 </tr>
               ))}
             </tbody>

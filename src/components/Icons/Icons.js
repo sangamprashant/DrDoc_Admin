@@ -13,6 +13,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import BadgeIcon from '@mui/icons-material/Badge';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 
 export{
     HomeIcon,
@@ -30,4 +31,5 @@ export{
     BadgeIcon,
     PersonAddAlt1Icon,
     PersonRemoveIcon,
+    BusinessCenterIcon,
 }

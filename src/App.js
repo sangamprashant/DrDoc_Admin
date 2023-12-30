@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./assets/App.css";
-import { EmailResponse, Home, SideNav } from "./components";
+import { EmailResponse, EmployeeMain, Home, SideNav } from "./components";
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/mail/:type" element={<EmailResponse/>} />
+          <Route path="/employee/:type" element={<EmployeeMain/>} />
         </Routes>
       </SideNav>
     </BrowserRouter>
