@@ -25,14 +25,13 @@ function SideNav({ children }) {
               <>
                 <p>{item.title}</p>
                 {item.items.map((link) => (
-                  <li
+                  <a
                     key={link.id}
                     className={`p-2 ${link.id === 1 ? "active" : ""}`}
+                    href={link.link}
                   >
-                    <a href={link.link}>
-                      {link.icon} {link.text}
-                    </a>
-                  </li>
+                    {link.icon} {link.text}
+                  </a>
                 ))}
               </>
             ))}

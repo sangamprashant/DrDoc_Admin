@@ -21,7 +21,7 @@ export const menuItems = [
   {
     title: "Email",
     items: [
-      { id: 10, text: "All Response", link: "#", icon: <MailIcon /> },
+      { id: 10, text: "All Response", link: "/mail/allmail", icon: <MailIcon /> },
       { id: 3, text: "Pending", link: "#", icon: <MarkEmailUnreadIcon /> },
       { id: 2, text: "Responded", link: "#", icon: <MarkEmailReadIcon /> },
     ],

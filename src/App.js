@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./assets/App.css";
-import { Home, SideNav, TopNav } from "./components";
+import { EmailResponse, Home, SideNav } from "./components";
 
 function App() {
   return (
@@ -8,6 +8,7 @@ function App() {
       <SideNav>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/mail/:type" element={<EmailResponse/>} />
         </Routes>
       </SideNav>
     </BrowserRouter>
