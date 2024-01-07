@@ -1,3 +1,4 @@
+import Login from "./Authentication/Login"
 import Employee from "./EmployeeList/Employee"
 import EmployeeMain from "./EmployeeList/EmployeeMain"
 import EmailResponse from "./Home/Email/EmailResponse"
@@ -12,4 +13,5 @@ export {
     Employee,
     EmailResponse,
     EmployeeMain,
+    Login,
 }

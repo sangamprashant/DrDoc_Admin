@@ -1,17 +1,32 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./assets/App.css";
-import { EmailResponse, EmployeeMain, Home, SideNav } from "./components";
+import {
+  EmailResponse,
+  EmployeeMain,
+  Home,
+  Login,
+  SideNav,
+} from "./components";
+import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
+  const [isLogged, setIsLogged] = useState(false);
   return (
     <BrowserRouter>
-      <SideNav>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/mail/:type" element={<EmailResponse/>} />
-          <Route path="/employee/:type" element={<EmployeeMain/>} />
-        </Routes>
-      </SideNav>
+      {isLogged ? (
+        <SideNav>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/mail/:type" element={<EmailResponse />} />
+            <Route path="/employee/:type" element={<EmployeeMain />} />
+          </Routes>
+        </SideNav>
+      ) : (
+        <Login setIsLogged={setIsLogged} />
+      )}
+      <ToastContainer theme="dark" />
     </BrowserRouter>
   );
 }
