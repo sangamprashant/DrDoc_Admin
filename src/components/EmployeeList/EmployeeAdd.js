@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { fetchData } from "./ApiCallEmployee";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { storage } from "../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 function EmployeeAdd() {
   const [formData, setFormData] = useState({
+    _id: "",
+    password: "",
     personal: {
-      id: "",
       name: "",
       email: "",
       dateOfBirth: "",
       salary: "",
       jobRole: "",
       image: "",
-      preview: "",
     },
     address: {
       address: "",
@@ -27,6 +32,14 @@ function EmployeeAdd() {
       branch: "",
     },
   });
+  const [dataGot, setDataGot] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedfile, setSelectedFile] = useState(null);
+  const [previewImg, setPreviewImg] = useState(null);
+
+  useEffect(() => {
+    fetchData(setDataGot);
+  }, []);
 
   const handleChange = (category, field, value) => {
     setFormData((prevData) => ({
@@ -38,16 +51,34 @@ function EmployeeAdd() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleChangeIdPaddword = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
+  const handleImageChange = (e) => {
+    const selectedImage = e.target.files[0];
+    setSelectedFile(selectedImage);
+    if (selectedImage) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImg(reader.result);
+      };
+      reader.readAsDataURL(selectedImage);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-      !formData.personal.id.trim() ||
+      !formData.password.trim() ||
       !formData.personal.name.trim() ||
       !formData.personal.email.trim() ||
       !formData.personal.dateOfBirth.trim() ||
       !formData.personal.salary.trim() ||
       !formData.personal.jobRole.trim() ||
-      !formData.personal.image.trim() ||
       !formData.address.address.trim() ||
       !formData.address.city.trim() ||
       !formData.address.phone.trim() ||
@@ -57,12 +88,51 @@ function EmployeeAdd() {
       !formData.bank.bankAccount.trim() ||
       !formData.bank.accountHolderName.trim() ||
       !formData.bank.ifcCode.trim() ||
-      !formData.bank.branch.trim()
+      !formData.bank.branch.trim() ||
+      !selectedfile
     ) {
-      alert("all fields are required.");
+      return alert("all fields are required.");
     }
-    // Handle form submission logic here
-    console.log("Form Data Submitted:", formData);
+    setLoading(true);
+
+    getImageLink();
+  };
+
+  const getImageLink = async () => {
+    const fileRef = ref(storage, `Drdoc/${Date.now() + selectedfile.name}`);
+    uploadBytes(fileRef, selectedfile).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        handleChange("personal","image",url)
+      });
+    });
+  };
+  // Use useEffect to log the correct value after the state is updated
+  useEffect(() => {
+    if (formData.personal.image) {
+      console.log("useEffect data:", formData.personal.image);
+      // handelUploadData();
+    }
+  }, [formData.personal.image]);
+
+  const handelUploadData = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_MY_KEY}/add/admin/employee`,
+        formData,
+        {
+          headers: {
+            Authorization: "Bearer " + `${sessionStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -72,26 +142,13 @@ function EmployeeAdd() {
         <h5>Personal details</h5>
         <table className="table table-borderless">
           <thead>
-            <tr>
-              <th>Id</th>
+            <tr className="w-100">
               <th>Name</th>
+              {formData._id ? <th>Id</th> : <th>Password</th>}
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>
-                <input
-                  name="id"
-                  placeholder="Id"
-                  disabled
-                  type="text"
-                  className="form-control"
-                  value={formData.personal.id}
-                  onChange={(e) =>
-                    handleChange("personal", "id", e.target.value)
-                  }
-                />
-              </td>
               <td>
                 <input
                   name="name"
@@ -103,6 +160,32 @@ function EmployeeAdd() {
                     handleChange("personal", "name", e.target.value)
                   }
                 />
+              </td>
+
+              <td>
+                {formData._id ? (
+                  <input
+                    name="_id"
+                    placeholder="_id"
+                    type="text"
+                    className="form-control"
+                    value={formData._id}
+                    onChange={(e) =>
+                      handleChangeIdPaddword("_id", e.target.value)
+                    }
+                  />
+                ) : (
+                  <input
+                    name="password"
+                    placeholder="Password"
+                    type="text"
+                    className="form-control"
+                    value={formData.password}
+                    onChange={(e) =>
+                      handleChangeIdPaddword("password", e.target.value)
+                    }
+                  />
+                )}
               </td>
             </tr>
           </tbody>
@@ -161,7 +244,7 @@ function EmployeeAdd() {
                 />
               </td>
               <td>
-                <input
+                <select
                   name="jobRole"
                   placeholder="Job Role"
                   type="text"
@@ -170,14 +253,21 @@ function EmployeeAdd() {
                   onChange={(e) =>
                     handleChange("personal", "jobRole", e.target.value)
                   }
-                />
+                >
+                  <option value="">Select a Job Role</option>
+                  {dataGot.map((data) => (
+                    <option key={data._id} value={data.post}>
+                      {data.post}
+                    </option>
+                  ))}
+                </select>
               </td>
             </tr>
           </tbody>
           <thead>
             <tr>
               <th>Image</th>
-              <th>Preview</th>
+              <th>Image Preview</th>
             </tr>
           </thead>
           <tbody>
@@ -187,21 +277,19 @@ function EmployeeAdd() {
                   name="image"
                   type="file"
                   className="form-control"
-                  value={formData.personal.image}
-                  onChange={(e) =>
-                    handleChange("personal", "image", e.target.value)
-                  }
+                  onChange={handleImageChange}
                 />
               </td>
               <td>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={formData.personal.preview}
-                  onChange={(e) =>
-                    handleChange("personal", "preview", e.target.value)
-                  }
-                />
+                {previewImg && (
+                  <img
+                    src={previewImg}
+                    alt="Preview"
+                    height="200"
+                    width="200"
+                    className=" object-fit-cover"
+                  />
+                )}
               </td>
             </tr>
           </tbody>
@@ -390,7 +478,7 @@ function EmployeeAdd() {
         </table>
 
         <button type="submit" className="btn btn-primary">
-          Submit
+          {loading ? "Please Wait.." : "Submit"}
         </button>
       </form>
     </div>

@@ -12,11 +12,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(sessionStorage.getItem("token")?true:false);
   return (
     <BrowserRouter>
       {isLogged ? (
-        <SideNav>
+        <SideNav setIsLogged={setIsLogged}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/mail/:type" element={<EmailResponse />} />

@@ -3,9 +3,15 @@ import { Protection } from "../../assets/images";
 import "./Sidenav.css";
 import { menuItems } from "./Content";
 import { Link, useLocation } from "react-router-dom";
+import { LogoutIcon } from "../Icons/Icons";
 
-function SideNav({ children }) {
+function SideNav({ children, setIsLogged}) {
   const location = useLocation();
+
+  const handelLogout = () => {
+    sessionStorage.removeItem("token")
+    setIsLogged(false)
+  }
 
   return (
     <div className="d-flex">
@@ -44,6 +50,14 @@ function SideNav({ children }) {
                 ))}
               </React.Fragment>
             ))}
+            <p>Account</p>
+            <Link
+              className={`p-2 text-danger`}
+              onClick={handelLogout}
+              to={"/"}
+            >
+              <LogoutIcon/> Logout
+            </Link>
           </ul>
         </div>
       </aside>

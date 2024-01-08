@@ -27,11 +27,16 @@ body {
   background-color: #9055fd;
   border: #9055fd;
 }
-.text-primary{
+.text-primary {
   color: #9055fd;
 }
 .btn-primary:hover,
 .bg-primary:hover {
   background-color: #7b38f8;
   border: #9055fd;
+}
+
+.action-icon svg:hover {
+  cursor: pointer;
+  color: red;
 }
