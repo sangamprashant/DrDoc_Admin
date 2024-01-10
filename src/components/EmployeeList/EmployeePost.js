@@ -13,7 +13,6 @@ function EmployeePost() {
     fetchData(setDataGot);
   }, []);
 
-
   const handelAddPost = async (e) => {
     e.preventDefault();
     if (!post.trim()) {
@@ -102,30 +101,34 @@ function EmployeePost() {
         </table>
       </form>
       <h5 className="text-center text-capitalize">List of job Post's </h5>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Sr.no</th>
-            <th>Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {dataGot.map((data, index) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{data.post}</td>
-              <td className="mx-2 action-icon">
-                <DeleteIcon
-                  onClick={() => {
-                    handelDeletePost(data);
-                  }}
-                />
-              </td>
+      {dataGot.length > 0 ? (
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Sr.no</th>
+              <th>Name</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {dataGot.map((data, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{data.post}</td>
+                <td className="mx-2 action-icon">
+                  <DeleteIcon
+                    onClick={() => {
+                      handelDeletePost(data);
+                    }}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <h1 className="text-center text-capitalize mt-5">Loading..</h1>
+      )}
     </div>
   );
 }

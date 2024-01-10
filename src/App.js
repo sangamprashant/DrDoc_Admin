@@ -3,6 +3,7 @@ import "./assets/App.css";
 import {
   EmailResponse,
   EmployeeMain,
+  EmployeeView,
   Home,
   Login,
   SideNav,
@@ -21,6 +22,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/mail/:type" element={<EmailResponse />} />
             <Route path="/employee/:type" element={<EmployeeMain />} />
+            <Route path="/employee/view/:id" element={<EmployeeView />} />
           </Routes>
         </SideNav>
       ) : (

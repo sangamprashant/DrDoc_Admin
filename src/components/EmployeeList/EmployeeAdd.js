@@ -4,8 +4,9 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { User } from "../../assets/images";
 
-function EmployeeAdd() {
+function EmployeeAdd({ isEdit, userData, setIsEdit }) {
   const [formData, setFormData] = useState({
     _id: "",
     password: "",
@@ -36,6 +37,13 @@ function EmployeeAdd() {
   const [loading, setLoading] = useState(false);
   const [selectedfile, setSelectedFile] = useState(null);
   const [previewImg, setPreviewImg] = useState(null);
+  const [uploadIsClicked, setUploadIsClicked] = useState(false);
+
+  useEffect(() => {
+    if (isEdit && userData) {
+      setFormData(userData);
+    }
+  }, [isEdit, userData]);
 
   useEffect(() => {
     fetchData(setDataGot);
@@ -72,12 +80,13 @@ function EmployeeAdd() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData)
     if (
       !formData.password.trim() ||
       !formData.personal.name.trim() ||
       !formData.personal.email.trim() ||
       !formData.personal.dateOfBirth.trim() ||
-      !formData.personal.salary.trim() ||
+      isNaN(formData.personal.salary) || 
       !formData.personal.jobRole.trim() ||
       !formData.address.address.trim() ||
       !formData.address.city.trim() ||
@@ -94,7 +103,8 @@ function EmployeeAdd() {
       return alert("all fields are required.");
     }
     setLoading(true);
-
+    setUploadIsClicked(true);
+  
     getImageLink();
   };
 
@@ -102,15 +112,15 @@ function EmployeeAdd() {
     const fileRef = ref(storage, `Drdoc/${Date.now() + selectedfile.name}`);
     uploadBytes(fileRef, selectedfile).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
-        handleChange("personal","image",url)
+        handleChange("personal", "image", url);
       });
     });
   };
   // Use useEffect to log the correct value after the state is updated
   useEffect(() => {
-    if (formData.personal.image) {
-      console.log("useEffect data:", formData.personal.image);
-      // handelUploadData();
+    if (formData.personal.image && uploadIsClicked) {
+      // console.log("useEffect data:", formData.personal.image);
+      handelUploadData();
     }
   }, [formData.personal.image]);
 
@@ -127,11 +137,17 @@ function EmployeeAdd() {
       );
       if (response.status === 200) {
         toast.success(response.data.message);
+
+        setFormData(response.data.empData);
+
+        setSelectedFile(null);
+        setPreviewImg(null);
       }
     } catch (error) {
       toast.error(error.response.data.error);
     } finally {
       setLoading(false);
+      setUploadIsClicked(false);
     }
   };
 
@@ -281,9 +297,25 @@ function EmployeeAdd() {
                 />
               </td>
               <td>
-                {previewImg && (
+                {previewImg ? (
                   <img
                     src={previewImg}
+                    alt="Preview"
+                    height="200"
+                    width="200"
+                    className=" object-fit-cover"
+                  />
+                ) : formData.personal.image ? (
+                  <img
+                    src={formData.personal.image}
+                    alt="Preview"
+                    height="200"
+                    width="200"
+                    className=" object-fit-cover"
+                  />
+                ) : (
+                  <img
+                    src={User}
                     alt="Preview"
                     height="200"
                     width="200"

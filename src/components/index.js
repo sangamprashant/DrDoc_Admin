@@ -1,6 +1,7 @@
 import Login from "./Authentication/Login"
 import Employee from "./EmployeeList/Employee"
 import EmployeeMain from "./EmployeeList/EmployeeMain"
+import EmployeeView from "./EmployeeList/EmployeeView"
 import EmailResponse from "./Home/Email/EmailResponse"
 import Home from "./Home/Home"
 import SideNav from "./SideNav/SideNav"
@@ -14,4 +15,5 @@ export {
     EmailResponse,
     EmployeeMain,
     Login,
+    EmployeeView,
 }

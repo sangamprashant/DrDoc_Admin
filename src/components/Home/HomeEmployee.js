@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Employee from "../EmployeeList/Employee";
-import { HardData } from "../EmployeeList/EmployeeData";
+import { fetchAllEmployees } from "../EmployeeList/ApiCallEmployee";
 
 function HomeEmployee() {
-  // fetch /employee/all
   const [EmployeeData, setEmployeeData] = useState([]);
 
   useEffect(()=>{
-    fetchData()
+    fetchAllEmployees(setEmployeeData)
   },[])
-
-  const fetchData = () =>{
-    setEmployeeData(HardData)
-  }
 
   return <Employee EmployeeData={EmployeeData} />;
 }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Employee from "./Employee";
 import { useNavigate, useParams } from "react-router-dom";
-import { HardData } from "./EmployeeData";
 import EmployeeDelete from "./EmployeeDelete";
 import EmployeeAdd from "./EmployeeAdd";
 import EmployeePost from "./EmployeePost";
+import axios from "axios";
+import { fetchAllEmployees } from "./ApiCallEmployee";
 
 function EmployeeMain() {
   const { type } = useParams();
@@ -19,10 +20,12 @@ function EmployeeMain() {
 
   useEffect(() => {
     if (type === "all" || type === "add" || type === "delete" || type ==="post") {
-      //   fetchEmployee(type);
-      setEmployeeData(HardData);
+      fetchAllEmployees(setEmployeeData)
     }
   }, []);
+
+
+
 
   const renderingComponent = () => {
     switch (type) {
