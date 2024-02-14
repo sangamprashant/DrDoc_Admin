@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { BASE_API } from "../../config";
+import { AppContext } from "../../AppContext";
 
-function Login({ setIsLogged }) {
+function Login() {
+  const { setIsLogged } = React.useContext(AppContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,12 +21,9 @@ function Login({ setIsLogged }) {
       password: password.trim(),
     };
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_MY_KEY}/admins/login`,
-        reqBody
-      );
+      const response = await axios.post(`${BASE_API}/common/login`, reqBody);
 
-      if (response.status === 200) {
+      if (response.data.success) {
         toast.success(response.data.message);
         sessionStorage.setItem("token", response.data.token);
         setIsLogged(true);
@@ -53,6 +53,7 @@ function Login({ setIsLogged }) {
             class="p-4 p-md-5 border rounded-3 bg-light shadow-lg"
             onSubmit={handelLogin}
           >
+            <h1>Admin</h1>
             <div class="form-floating mb-3">
               <input
                 value={email}

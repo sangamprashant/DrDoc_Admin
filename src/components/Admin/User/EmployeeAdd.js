@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { fetchData } from "./ApiCallEmployee";
+// import { fetchData } from "./ApiCallEmployee";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { storage } from "../../firebase";
+import { storage } from "../../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { User } from "../../assets/images";
+import { User } from "../../../assets/images";
 
-function EmployeeAdd({ isEdit, userData, setIsEdit }) {
+function EmployeeAdd({ isEdit, userData, setUserData, setIsEdit }) {
   const [formData, setFormData] = useState({
     _id: "",
     password: "",
@@ -45,9 +45,9 @@ function EmployeeAdd({ isEdit, userData, setIsEdit }) {
     }
   }, [isEdit, userData]);
 
-  useEffect(() => {
-    fetchData(setDataGot);
-  }, []);
+  // useEffect(() => {
+  //   fetchData(setDataGot);
+  // }, []);
 
   const handleChange = (category, field, value) => {
     setFormData((prevData) => ({
@@ -80,13 +80,12 @@ function EmployeeAdd({ isEdit, userData, setIsEdit }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
     if (
       !formData.password.trim() ||
       !formData.personal.name.trim() ||
       !formData.personal.email.trim() ||
       !formData.personal.dateOfBirth.trim() ||
-      isNaN(formData.personal.salary) || 
+      isNaN(formData.personal.salary) ||
       !formData.personal.jobRole.trim() ||
       !formData.address.address.trim() ||
       !formData.address.city.trim() ||
@@ -98,53 +97,85 @@ function EmployeeAdd({ isEdit, userData, setIsEdit }) {
       !formData.bank.accountHolderName.trim() ||
       !formData.bank.ifcCode.trim() ||
       !formData.bank.branch.trim() ||
-      !selectedfile
+      !(selectedfile || formData.personal.image.trim())
     ) {
       return alert("all fields are required.");
     }
     setLoading(true);
     setUploadIsClicked(true);
-  
     getImageLink();
   };
 
   const getImageLink = async () => {
-    const fileRef = ref(storage, `Drdoc/${Date.now() + selectedfile.name}`);
-    uploadBytes(fileRef, selectedfile).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        handleChange("personal", "image", url);
+    if (selectedfile) {
+      const fileRef = ref(storage, `Drdoc/${Date.now() + selectedfile.name}`);
+      uploadBytes(fileRef, selectedfile).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+          handleChange("personal", "image", url);
+        });
       });
-    });
+    } else {
+      handelUploadData();
+    }
   };
   // Use useEffect to log the correct value after the state is updated
   useEffect(() => {
     if (formData.personal.image && uploadIsClicked) {
-      // console.log("useEffect data:", formData.personal.image);
       handelUploadData();
     }
   }, [formData.personal.image]);
 
   const handelUploadData = async () => {
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_MY_KEY}/add/admin/employee`,
-        formData,
-        {
-          headers: {
-            Authorization: "Bearer " + `${sessionStorage.getItem("token")}`,
-          },
-        }
-      );
+      const url = isEdit
+        ? `${process.env.REACT_APP_MY_KEY}/update/admin/employee/${formData._id}`
+        : `${process.env.REACT_APP_MY_KEY}/add/admin/employee`;
+
+      const response = await axios.post(url, formData, {
+        headers: {
+          Authorization: "Bearer " + `${sessionStorage.getItem("token")}`,
+        },
+      });
+
       if (response.status === 200) {
         toast.success(response.data.message);
-
-        setFormData(response.data.empData);
-
+        if (isEdit) {
+          setUserData(response.data.empData);
+        }
+        setFormData({
+          _id: "",
+          password: "",
+          personal: {
+            name: "",
+            email: "",
+            dateOfBirth: "",
+            salary: "",
+            jobRole: "",
+            image: "",
+          },
+          address: {
+            address: "",
+            city: "",
+            phone: "",
+            currentAddress: "",
+            pin: "",
+            country: "",
+          },
+          bank: {
+            bankAccount: "",
+            accountHolderName: "",
+            ifcCode: "",
+            branch: "",
+          },
+        });
         setSelectedFile(null);
         setPreviewImg(null);
+        if (isEdit) {
+          setIsEdit(false);
+        }
       }
     } catch (error) {
-      toast.error(error.response.data.error);
+      toast.error(error?.response?.data?.error);
     } finally {
       setLoading(false);
       setUploadIsClicked(false);
@@ -153,6 +184,16 @@ function EmployeeAdd({ isEdit, userData, setIsEdit }) {
 
   return (
     <div className="container">
+      <div className="d-flex justify-content-between mb-2">
+        <h2>Employee Profile Form </h2>
+        {isEdit && (
+          <div className="d-flex gap-2">
+            <button className="btn btn-danger" onClick={() => setIsEdit(false)}>
+              Cancel
+            </button>
+          </div>
+        )}
+      </div>
       <form onSubmit={handleSubmit}>
         {/* Personal details */}
         <h5>Personal details</h5>
@@ -510,7 +551,7 @@ function EmployeeAdd({ isEdit, userData, setIsEdit }) {
         </table>
 
         <button type="submit" className="btn btn-primary">
-          {loading ? "Please Wait.." : "Submit"}
+          {loading ? "Please Wait.." : "Varify"}
         </button>
       </form>
     </div>

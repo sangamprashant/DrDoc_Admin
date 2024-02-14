@@ -1,17 +1,15 @@
 import Login from "./Authentication/Login"
-import Employee from "./EmployeeList/Employee"
-import EmployeeMain from "./EmployeeList/EmployeeMain"
-import EmployeeView from "./EmployeeList/EmployeeView"
-import EmailResponse from "./Home/Email/EmailResponse"
-import Home from "./Home/Home"
 import SideNav from "./SideNav/SideNav"
 import TopNav from "./TopNav"
+import EmployeeMain from "./Admin/User/EmployeeMain"
+import EmployeeView from "./Admin/User/EmployeeView"
+import Home from "./Admin/Home/Home"
+import EmailResponse from "./Admin/Home/Email/EmailResponse"
 
 export {
     Home,
     SideNav,
     TopNav,
-    Employee,
     EmailResponse,
     EmployeeMain,
     Login,

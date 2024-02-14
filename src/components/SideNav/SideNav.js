@@ -4,14 +4,27 @@ import "./Sidenav.css";
 import { menuItems } from "./Content";
 import { Link, useLocation } from "react-router-dom";
 import { LogoutIcon } from "../Icons/Icons";
+import { AppContext } from "../../AppContext";
 
-function SideNav({ children, setIsLogged}) {
+function SideNav({ children }) {
+  const { token, setToken, isLogged, setIsLogged, user, setUser } =
+    React.useContext(AppContext);
   const location = useLocation();
 
   const handelLogout = () => {
-    sessionStorage.removeItem("token")
-    setIsLogged(false)
-  }
+    sessionStorage.removeItem("token");
+    setIsLogged(false);
+  };
+
+  const type = user?.isAdmin
+    ? "admin"
+    : user?.isDoctor
+    ? "doctor"
+    : user?.isSeller
+    ? "sheller"
+    : user?.isDelivery
+    ? "delivery"
+    : "user";
 
   return (
     <div className="d-flex">
@@ -27,11 +40,11 @@ function SideNav({ children, setIsLogged}) {
         <div className="d-flex flex-column align-items-center p-0">
           <figure className="d-flex align-items-center">
             <img height="70" src={Protection} alt="" className="mr-2" />
-            <h1 className="fw-bolder">Admin</h1>
+            <h1 className="fw-bolder">{type}</h1>
           </figure>
           <ul className="side-menu-option mt-1">
             {menuItems.map((item) => (
-              <React.Fragment key={item.id}>
+              <React.Fragment key={item.title}>
                 <p>{item.title}</p>
                 {item.items.map((link) => (
                   <Link
@@ -51,12 +64,8 @@ function SideNav({ children, setIsLogged}) {
               </React.Fragment>
             ))}
             <p>Account</p>
-            <Link
-              className={`p-2 text-danger`}
-              onClick={handelLogout}
-              to={"/"}
-            >
-              <LogoutIcon/> Logout
+            <Link className={`p-2 text-danger`} onClick={handelLogout} to={"/"}>
+              <LogoutIcon /> Logout
             </Link>
           </ul>
         </div>

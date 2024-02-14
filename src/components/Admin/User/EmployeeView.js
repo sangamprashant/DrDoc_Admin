@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { User } from "../../assets/images";
+import { User } from "../../../assets/images";
 import { toast } from "react-toastify";
 import EmployeeAdd from "./EmployeeAdd";
 
@@ -133,7 +133,7 @@ function EmployeeView() {
         <div className="container">
           <div className="d-flex justify-content-between">
             <h2>Employee Profile</h2>
-            <div clas>
+            <div className="d-flex gap-2">
               <button
                 className="btn btn-success"
                 onClick={() => setIsEdit(true)}
@@ -161,7 +161,12 @@ function EmployeeView() {
           )}
         </div>
       ) : (
-        <EmployeeAdd isEdit={isEdit} userData={userData} setIsEdit={setIsEdit} />
+        <EmployeeAdd
+          isEdit={isEdit}
+          userData={userData}
+          setUserData={setUserData}
+          setIsEdit={setIsEdit}
+        />
       )}
     </>
   );

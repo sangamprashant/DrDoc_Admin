@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  CurrencyRupeeIcon,
-  DevicesIcon,
-  MoreVertIcon,
-  PersonIcon,
-  TrendingUpIcon,
-} from "../../Icons/Icons";
+import { CurrencyRupeeIcon, DevicesIcon, MoreVertIcon, PersonIcon, TrendingUpIcon } from "../../../Icons/Icons";
+
 
 const Content = [
   {

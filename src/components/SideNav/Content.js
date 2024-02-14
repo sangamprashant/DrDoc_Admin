@@ -10,6 +10,7 @@ import {
   SignalCellularAltIcon,
   TimelineIcon,
 } from "../Icons/Icons";
+
 export const menuItems = [
   {
     title: "",
@@ -22,27 +23,34 @@ export const menuItems = [
   {
     title: "Email",
     items: [
-      { id: 10, text: "All Response", link: "/mail/all", icon: <MailIcon /> },
-      { id: 3, text: "Pending", link: "/mail/pending", icon: <MarkEmailUnreadIcon /> },
-      { id: 2, text: "Responded", link: "/mail/responded", icon: <MarkEmailReadIcon /> },
+      { id: 4, text: "All Response", link: "/mail/all", icon: <MailIcon /> },
+      { id: 5, text: "Pending", link: "/mail/pending", icon: <MarkEmailUnreadIcon /> },
+      { id: 6, text: "Responded", link: "/mail/responded", icon: <MarkEmailReadIcon /> },
     ],
   },
   {
-    title: "Employee",
+    title: "User",
     items: [
-      { id: 10, text: "All Employee", link: "/employee/all", icon: <BadgeIcon /> },
-      { id: 3, text: "Add Emplopyee", link: "/employee/add", icon: <PersonAddAlt1Icon /> },
-      { id: 2, text: "Remove Employee", link: "/employee/delete", icon: <PersonRemoveIcon /> },
-      { id: 12, text: "Employee Post", link: "/employee/post", icon: <BusinessCenterIcon /> },
+      { id: 7, text: "All User", link: "/user/all", icon: <BadgeIcon /> },
     ],
   },
   {
-    title: "Payment",
+    title: "Doctors",
     items: [
-      { id: 17, text: "Received", link: "#" },
-      { id: 2, text: "Failed", link: "#" },
-      { id: 3, text: "Confirmed", link: "#" },
-      { id: 3, text: "Refund", link: "#" },
+      { id: 8, text: "All Doctors", link: "/doctor/all", icon: <BadgeIcon /> },
+      { id: 9, text: "Applications", link: "/doctor/application", icon: <PersonAddAlt1Icon /> },
+    ],
+  },
+  {
+    title: "Seller",
+    items: [
+      { id: 10, text: "All Seller", link: "/seller/all", icon: <BadgeIcon /> },
+    ],
+  },
+  {
+    title: "Delivery",
+    items: [
+      { id: 11, text: "All Seller", link: "/delivery/all", icon: <BadgeIcon /> },
     ],
   },
 ];
