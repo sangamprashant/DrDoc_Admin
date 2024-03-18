@@ -1,10 +1,22 @@
+import { Table, Tooltip } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import { Table, Tooltip } from "antd";
 import { VisibilityIcon } from "../../Icons/Icons";
 import { User } from "../../../assets/images";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { BASE_API } from "../../../config";
+import { fetchApplicationsType } from "../../../apiCall";
 
-function UserTable({ DoctorData }) {
+function Application({ userType }) {
+  const [users, setUsers] = React.useState(null);
+
+  React.useEffect(() => {
+    if (userType) {
+      fetchApplicationsType(setUsers, userType);
+    }
+  }, [userType]);
+
   const columns = [
     {
       title: "User",
@@ -14,7 +26,7 @@ function UserTable({ DoctorData }) {
         <div className="d-flex align-items-center">
           <div className="avatar avatar-sm me-3">
             <img
-              src={personal.image ? personal.image : User}
+              src={personal?.personal?.image ? personal?.personal?.image : User}
               alt="Avatar"
               height="50"
               width="50"
@@ -54,15 +66,7 @@ function UserTable({ DoctorData }) {
     },
   ];
 
-  return (
-    <div className="col-12">
-      <div className="card">
-        <div className="table-responsive">
-          <Table dataSource={DoctorData} columns={columns} />
-        </div>
-      </div>
-    </div>
-  );
+  return <Table dataSource={users} columns={columns} />;
 }
 
-export default UserTable;
+export default Application;

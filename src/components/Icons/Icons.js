@@ -16,8 +16,18 @@ import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import LogoutIcon from "@mui/icons-material/Logout";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import SensorOccupiedIcon from "@mui/icons-material/SensorOccupied";
+import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import EmailIcon from "@mui/icons-material/Email";
+import PublicIcon from "@mui/icons-material/Public";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 
 export {
+  LocalPhoneIcon,
+  PublicIcon,
+  EmailIcon,
   HomeIcon,
   TimelineIcon,
   SignalCellularAltIcon,
@@ -36,4 +46,6 @@ export {
   BusinessCenterIcon,
   LogoutIcon,
   DeleteIcon,
+  SensorOccupiedIcon,
+  LocationOnIcon,
 };
