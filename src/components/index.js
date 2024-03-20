@@ -7,6 +7,7 @@ import Home from "./Admin/Home/Home";
 import EmailResponse from "./Admin/Home/Email/EmailResponse";
 import Modal from "./Modal";
 import DoctorProfile from "./Doctor/Profile/DoctorProfile";
+import Clients from "./Doctor/Clients";
 
 export {
   Home,
@@ -17,5 +18,6 @@ export {
   Login,
   EmployeeView,
   Modal,
-  DoctorProfile
+  DoctorProfile,
+  Clients,
 };

@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./assets/App.css";
 import {
+  Clients,
   DoctorProfile,
   EmailResponse,
   EmployeeMain,
@@ -92,7 +93,7 @@ function App() {
               <Route path="/employee/view/:id" element={<EmployeeView />} />
               {/* doctor */}
               <Route path="/doctor/my/profile" element={<DoctorProfile />} />
-              <Route path="/doctor/my/clients" element={<DoctorProfile />} />
+              <Route path="/doctor/my/clients" element={<Clients />} />
               <Route path="/doctor/my/clients/chats" element={<DoctorProfile />} />
             </Routes>
           </SideNav>
