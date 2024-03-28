@@ -82,7 +82,7 @@ export const menuItemsDoctor = [
       {
         id: 1,
         text: "Chats",
-        link: "/doctor/my/clients/chats",
+        link: "/doctor/chats",
         icon: <HomeIcon />,
       },
     ],

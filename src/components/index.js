@@ -8,6 +8,7 @@ import EmailResponse from "./Admin/Home/Email/EmailResponse";
 import Modal from "./Modal";
 import DoctorProfile from "./Doctor/Profile/DoctorProfile";
 import Clients from "./Doctor/Clients";
+import Chats from "./Doctor/Chats";
 
 export {
   Home,
@@ -20,4 +21,5 @@ export {
   Modal,
   DoctorProfile,
   Clients,
+  Chats,
 };

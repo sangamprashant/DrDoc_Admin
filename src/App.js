@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./assets/App.css";
 import {
+  Chats,
   Clients,
   DoctorProfile,
   EmailResponse,
@@ -94,6 +95,7 @@ function App() {
               {/* doctor */}
               <Route path="/doctor/my/profile" element={<DoctorProfile />} />
               <Route path="/doctor/my/clients" element={<Clients />} />
+              <Route path="/doctor/chats" element={<Chats />} />
               <Route path="/doctor/my/clients/chats" element={<DoctorProfile />} />
             </Routes>
           </SideNav>
