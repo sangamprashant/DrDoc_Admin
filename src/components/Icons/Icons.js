@@ -20,9 +20,11 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SensorOccupiedIcon from "@mui/icons-material/SensorOccupied";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import AddIcon from "@mui/icons-material/Add";
 import EmailIcon from "@mui/icons-material/Email";
 import PublicIcon from "@mui/icons-material/Public";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import CloseIcon from '@mui/icons-material/Close';
 
 export {
   LocalPhoneIcon,
@@ -48,4 +50,6 @@ export {
   DeleteIcon,
   SensorOccupiedIcon,
   LocationOnIcon,
+  AddIcon,
+  CloseIcon
 };

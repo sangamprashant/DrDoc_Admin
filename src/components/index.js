@@ -9,6 +9,7 @@ import Modal from "./Modal";
 import DoctorProfile from "./Doctor/Profile/DoctorProfile";
 import Clients from "./Doctor/Clients";
 import Chats from "./Doctor/Chats";
+import ClientsProfile from "./Doctor/Clients/Profile";
 
 export {
   Home,
@@ -22,4 +23,5 @@ export {
   DoctorProfile,
   Clients,
   Chats,
+  ClientsProfile
 };

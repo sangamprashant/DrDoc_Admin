@@ -3,6 +3,7 @@ import "./assets/App.css";
 import {
   Chats,
   Clients,
+  ClientsProfile,
   DoctorProfile,
   EmailResponse,
   EmployeeMain,
@@ -95,6 +96,7 @@ function App() {
               {/* doctor */}
               <Route path="/doctor/my/profile" element={<DoctorProfile />} />
               <Route path="/doctor/my/clients" element={<Clients />} />
+              <Route path="/doctor/my/clients/:id" element={<ClientsProfile />} />
               <Route path="/doctor/chats" element={<Chats />} />
               <Route path="/doctor/my/clients/chats" element={<DoctorProfile />} />
             </Routes>
